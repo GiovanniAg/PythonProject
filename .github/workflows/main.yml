@@ -30,10 +30,10 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    # Passo 4: Executa os testes com unittest
+    # Passo 4: Executa os testes com pytest
     - name: Run tests
       run: |
-        python -m unittest discover -s tests
+        python -m pytest
 
   sonarcloud:
     name: SonarCloud
