@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+
+  db:
+
+    image: 'postgres:17-alpine'
+    ports:
+      - 5460:5432
+    environment:
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_USER=products_service_app
+      - POSTGRES_DB=products_service_db
+    networks:
+      - products-service-network
+    
+  app:
+
+    build: .
+    environment:
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=3000
+      - ENVIRONMENT=production
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_USER=products_service_app
+      - DATABASE_PASSWORD=123
+      - DATABASE_NAME=products_service_db
+    command: sh -c "alembic upgrade head && python main.py"
+    ports:
+      - 3000:3000
+    networks:
+      - products-service-network
+    depends_on:
+      - db
+
+networks:
+  products-service-network:
+    driver: bridge
+
+    
+

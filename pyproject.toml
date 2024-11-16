@@ -1,0 +1,14 @@
+[tool.pytest.ini_options]
+pythonpath = [
+  ".",
+  "src",
+  "tests",
+]
+
+[tool.pytest_env]
+ENVIRONMENT="test"
+DATABASE_HOST="0.0.0.0"
+DATABASE_PORT="5432"
+DATABASE_USER="postgres"
+DATABASE_PASSWORD="1234"
+DATABASE_NAME="products_service"
